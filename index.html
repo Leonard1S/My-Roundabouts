@@ -6,206 +6,250 @@
 
 <style>
 
-/* ---------- ANIMATED BACKGROUND ---------- */
+/* ---------- BACKGROUND ---------- */
 
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  margin: 0;
-  color: #333;
-  background: linear-gradient(-45deg,#eaf6f9,#d9eef3,#f7fbfd,#e6f3f6);
-  background-size: 400% 400%;
-  animation: bgMove 12s ease infinite;
+body{
+margin:0;
+font-family:"Segoe UI",Arial;
+background:linear-gradient(-45deg,#eaf6f9,#d9eef3,#f7fbfd,#e6f3f6);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+color:#333;
 }
 
-@keyframes bgMove {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-/* glow orbs */
+/* ---------- PROGRESS BAR ---------- */
 
-body::before,
-body::after{
-  content:"";
-  position:fixed;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  background:rgba(76,161,175,0.15);
-  filter:blur(80px);
-  z-index:-1;
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:5px;
+background:#4ca1af;
+width:0%;
+z-index:9999;
 }
-body::before{top:-80px;left:-80px;}
-body::after{bottom:-80px;right:-80px;}
+
+/* ---------- NAV ---------- */
+
+nav{
+position:sticky;
+top:0;
+background:#2c3e50;
+padding:8px;
+text-align:center;
+z-index:100;
+}
+
+button{
+padding:8px 16px;
+border:none;
+border-radius:8px;
+background:#4ca1af;
+color:white;
+cursor:pointer;
+margin:4px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
 
 /* ---------- PAGE SWITCH ---------- */
 
 .page{
-  display:none;
-  opacity:0;
-  transform:translateY(10px);
-  transition:all .5s ease;
+display:none;
+opacity:0;
+transform:translateY(20px);
+transition:.6s;
 }
 
 .page.active{
-  display:block;
-  opacity:1;
-  transform:translateY(0);
+display:block;
+opacity:1;
+transform:translateY(0);
 }
 
 /* ---------- HEADER ---------- */
 
 header{
-  background:linear-gradient(135deg,#2c3e50,#4ca1af);
-  color:white;
-  padding:45px 20px;
-  text-align:center;
-  box-shadow:0 6px 15px rgba(0,0,0,0.15);
-}
-
-header::after{
-  content:"";
-  display:block;
-  width:80px;
-  height:4px;
-  background:white;
-  margin:15px auto 0;
-  border-radius:2px;
-}
-
-/* ---------- BUTTON ---------- */
-
-button{
-  padding:12px 22px;
-  font-size:16px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#4ca1af,#2c3e50);
-  color:white;
-  cursor:pointer;
-  margin-top:15px;
-  transition:.3s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 15px rgba(0,0,0,0.2);
+background:linear-gradient(135deg,#2c3e50,#4ca1af);
+color:white;
+padding:50px 20px;
+text-align:center;
 }
 
 /* ---------- CONTENT ---------- */
 
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+max-width:1000px;
+margin:auto;
+padding:20px;
 }
 
 section{
-  background:rgba(255,255,255,0.9);
-  margin-top:25px;
-  padding:25px;
-  border-radius:20px;
-  backdrop-filter:blur(6px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  transition:.2s;
+background:white;
+margin-top:25px;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+opacity:0;
+transform:translateY(40px);
+transition:.6s;
 }
 
-section:hover{
-  transform:translateY(-4px);
+/* Disable animation for home */
+
+.no-anim{
+opacity:1 !important;
+transform:none !important;
+transition:none !important;
 }
 
-h2{
-  border-left:6px solid #4ca1af;
-  padding-left:12px;
+section.show{
+opacity:1;
+transform:translateY(0);
 }
-
-/* ---------- IMAGE GALLERY ---------- */
 
 .gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-  margin-top:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
 }
 
 .gallery img{
-  width:100%;
-  border-radius:15px;
-  transition:.3s;
-  cursor:pointer;
-  box-shadow:0 6px 15px rgba(0,0,0,0.15);
+width:100%;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
 }
 
 .gallery img:hover{
-  transform:scale(1.05);
+transform:scale(1.05);
 }
 
-/* ---------- MEDIA ---------- */
+.card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 6px 15px rgba(0,0,0,.15);
+text-align:center;
+}
 
-.media{text-align:center;}
+.card img{
+width:100%;
+cursor:pointer;
+}
 
-/* ---------- FOOTER ---------- */
+.caption{
+padding:6px;
+background:#f4f4f4;
+font-size:14px;
+}
+
+/* ---------- ZOOM SLIDESHOW ---------- */
+
+.zoom{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:999;
+}
+
+.zoom img{
+max-width:90%;
+max-height:80%;
+border-radius:12px;
+}
+
+.zoom-controls{
+margin-top:10px;
+}
 
 footer{
-  text-align:center;
-  padding:20px;
-  margin-top:30px;
-  color:#666;
-  font-size:14px;
-}
-
-/* ---------- IMAGE ZOOM ---------- */
-
-.zoom-overlay{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.85);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.zoom-overlay img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:12px;
-  animation:zoomIn .3s ease;
-}
-
-@keyframes zoomIn{
-  from{transform:scale(.8);opacity:0;}
-  to{transform:scale(1);opacity:1;}
+text-align:center;
+padding:20px;
+color:#777;
 }
 
 </style>
 
 <script>
 
+let images=[
+"roundabout1.jpg",
+"roundabout2.jpg",
+"roundabout3.jpg",
+"roundabout4.jpg",
+"extra1.jpg",
+"extra2.jpg",
+"extra3.jpg",
+"extra4.jpg"
+];
+
+let current=0;
+
 function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 }
 
-function zoomImage(src){
- const overlay=document.getElementById("zoomOverlay");
- const img=document.getElementById("zoomImg");
- img.src=src;
- overlay.style.display="flex";
+function openZoom(src){
+current=images.indexOf(src);
+document.getElementById("zoomImg").src=src;
+document.getElementById("zoom").style.display="flex";
 }
 
 function closeZoom(){
- document.getElementById("zoomOverlay").style.display="none";
+document.getElementById("zoom").style.display="none";
 }
+
+function next(){
+current=(current+1)%images.length;
+document.getElementById("zoomImg").src=images[current];
+}
+
+function prev(){
+current=(current-1+images.length)%images.length;
+document.getElementById("zoomImg").src=images[current];
+}
+
+window.addEventListener("scroll",()=>{
+document.querySelectorAll("section").forEach(sec=>{
+if(sec.classList.contains("no-anim")) return;
+let top=sec.getBoundingClientRect().top;
+if(top<window.innerHeight-100){
+sec.classList.add("show");
+}
+});
+
+let scroll=window.scrollY;
+let height=document.body.scrollHeight-window.innerHeight;
+document.getElementById("progress").style.width=(scroll/height)*100+"%";
+});
 
 </script>
 
 </head>
+
 <body>
+
+<div id="progress"></div>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('roundabout')">Roundabout</button>
+</nav>
 
 <!-- HOME PAGE -->
 
@@ -218,27 +262,24 @@ function closeZoom(){
 
 <div class="container">
 
-<section>
+<section class="no-anim">
 <h2>✨ Welcome</h2>
 <p>
-Welcome to Tonda Designs! We're thrilled to share our unique blend of style and creativity with you. Let's create spaces that inspire!
-</p>
+Welcome to a design where culture and mathematics come together in harmony. This roundabout is more than just a roadway feature. It is a symbol of unity, identity, and community. Inspired by the beloved Pancit Cabagan of Cagayan, a dish that brings families and friends together, the circular form reflects connection and togetherness. Just as the long noodles intertwine and gather in one serving, the roads in this design meet at a shared center, the heart of the community.
 
-<button onclick="showPage('roundabout')">
-View the Design →
-</button>
+At the same time, mathematics gives the structure balance and precision. Through the use of circles, symmetry, radius, diameter, and circumference, the design becomes both meaningful and mathematically accurate. By blending tradition with geometry, this roundabout warmly represents how culture and numbers can beautifully shape the spaces we share.
+</p>
+<button onclick="showPage('roundabout')">View the Design →</button>
 </section>
 
-<section>
+<section class="no-anim">
 <h2>👥 Project Members</h2>
-
 <ul>
 <li>Krystal Pagala</li>
 <li>Amaya Nicolas</li>
 <li>Janrey Maramag</li>
 <li>Jynea Guyagoy</li>
 </ul>
-
 </section>
 
 </div>
@@ -258,70 +299,85 @@ View the Design →
 <section>
 <h2>Design Concept</h2>
 <p>
- This roundabout design was created to improve traffic safety
-      while enhancing the aesthetic beauty of Tuguegarao City.
-      Its circular form represents balance, unity, and the continuous
-      flow of movement within the community.
+This roundabout design was created to improve traffic safety while enhancing the aesthetic beauty of Tuguegarao City. Its circular form represents balance, unity, and the continuous flow of movement within the community.
 </p>
 </section>
 
 <section>
 <h2>🖼 Design Presentation</h2>
-
 <div class="gallery">
-<img src="roundabout1.jpg" onclick="zoomImage(this.src)">
-<img src="roundabout2.jpg" onclick="zoomImage(this.src)">
-<img src="roundabout3.jpg" onclick="zoomImage(this.src)">
-<img src="roundabout4.jpg" onclick="zoomImage(this.src)">
+<img src="roundabout1.jpg" onclick="openZoom(this.src)">
+<img src="roundabout2.jpg" onclick="openZoom(this.src)">
+<img src="roundabout3.jpg" onclick="openZoom(this.src)">
+<img src="roundabout4.jpg" onclick="openZoom(this.src)">
 </div>
-
-<p style="text-align:center;">
-My Roundabout
-</p>
-
 </section>
 
 <section>
 <h2>🎙 Design Explanation</h2>
-
-<div class="media">
 <audio controls>
-<source src="explanation.mp3" type="audio/mpeg">
+<source src="explanation.mp3">
 </audio>
-</div>
-
 </section>
 
 <section>
 <h2>🌏 Cultural Significance</h2>
 <p>
-  design is inspired by both mathematics and the culture of Cagayan, especially Pancit Cabagan, a dish that symbolizes identity, connection, and unity. Its circular serving and long, flowing noodles inspired the round shape and layered rings of the roundabout. Like pancit brings people together, the roundabout represents different roads and people meeting at one center the heart of the community.
+design is inspired by both mathematics and the culture of Cagayan, especially Pancit Cabagan, a dish that symbolizes identity, connection, and unity. Its circular serving and long, flowing noodles inspired the round shape and layered rings of the roundabout. Like pancit brings people together, the roundabout represents different roads and people meeting at one center the heart of the community.
 </p>
 </section>
 
 <section>
 <h2>📐 Mathematical Concepts</h2>
 <p>
- Mathematics is used in the design through circle concepts like radius, diameter, circumference, and symmetry. The roundabout has a diameter of 22 units, so its radius is 11 units. Using the formula C = 2πr, the circumference is 22π, or about 69.08 units, showing how math helps make the design accurate and meaningful.
+Mathematics is used in the design through circle concepts like radius, diameter, circumference, and symmetry. The roundabout has a diameter of 22 units, so its radius is 11 units. Using the formula C = 2πr, the circumference is 22π, or about 69.08 units, showing how math helps make the design accurate and meaningful.
 </p>
 </section>
 
-<button onclick="showPage('home')">
-← Back to Home
-</button>
+<section>
+<h2>🖼 Additional Gallery</h2>
+
+<div class="gallery">
+
+<div class="card">
+<img src="extra1.jpg" onclick="openZoom(this.src)">
+<div class="caption">Krystal Pagala</div>
+</div>
+
+<div class="card">
+<img src="extra2.jpg" onclick="openZoom(this.src)">
+<div class="caption">Amaya Nicolas</div>
+</div>
+
+<div class="card">
+<img src="extra3.jpg" onclick="openZoom(this.src)">
+<div class="caption">Janrey Maramag</div>
+</div>
+
+<div class="card">
+<img src="extra4.jpg" onclick="openZoom(this.src)">
+<div class="caption">Jynea Guyagoy</div>
+</div>
+
+</div>
+</section>
+
+<button onclick="showPage('home')">← Back to Home</button>
 
 </div>
 
-<footer>
-© 2026 • Roundabout Project
-</footer>
+<footer>© 2026 • Roundabout Project</footer>
 
 </div>
 
-<!-- ZOOM POPUP -->
+<!-- ZOOM VIEWER -->
 
-<div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()">
+<div id="zoom" class="zoom" onclick="closeZoom()">
 <img id="zoomImg">
+<div class="zoom-controls">
+<button onclick="event.stopPropagation();prev()">◀</button>
+<button onclick="event.stopPropagation();next()">▶</button>
+</div>
 </div>
 
 </body>
